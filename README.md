@@ -1,7 +1,8 @@
 ### Triple Pulse Stimulator
 
 Developed by Rodrigo Amaducci (rodrigo.amaducci@uam.es)
-Grupo de Neurocomputación Biológica (GNB), Universidad Autónoma de Madrid, 2018
+
+Grupo de Neurocomputación Biológica (GNB), Universidad Autónoma de Madrid
 
 **Requirements:** None  
 **Limitations:** None  
