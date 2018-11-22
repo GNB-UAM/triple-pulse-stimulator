@@ -37,6 +37,7 @@ static DefaultGUIModel::variable_t vars[] = {
     { "Step (s)", "Time step for the intervals", DefaultGUIModel::PARAMETER | DefaultGUIModel::DOUBLE,},
     { "Amplitude (V)", "Generated pulses amplitude", DefaultGUIModel::PARAMETER | DefaultGUIModel::DOUBLE,},
     { "Status (Finished == 1)", "When the trial ends, status is 1", DefaultGUIModel::STATE,},
+    { "Trial duration (s)", "Trial duration", DefaultGUIModel::STATE,},
 };
 
 static size_t num_vars = sizeof(vars) / sizeof(DefaultGUIModel::variable_t);
@@ -58,6 +59,21 @@ TriplePulseStimulator::TriplePulseStimulator(void)
 
 TriplePulseStimulator::~TriplePulseStimulator(void)
 {
+}
+
+void
+TriplePulseStimulator::calculateDuration(void)
+{
+	double total = 0.0;
+	double i, j;
+
+	for (i = t1_ini; i < t1_max; i += step) {
+		for (j = t2_ini; j < t2_max; j += step) {
+			total += i + j + recovery;
+		}
+	}
+
+	duration = total;
 }
 
 void
@@ -123,6 +139,8 @@ TriplePulseStimulator::initParameters(void)
   status = 0;
   time = 0;
   amplitude = 0;
+
+  duration = 0;
 }
 
 void
@@ -139,6 +157,7 @@ TriplePulseStimulator::update(DefaultGUIModel::update_flags_t flag)
       setParameter("Step (s)", recovery);
       setParameter("Amplitude (V)", amplitude);
       setState("Status (Finished == 1)", status);
+      setState("Trial duration (s)", duration);
       break;
 
     case MODIFY:
@@ -154,6 +173,8 @@ TriplePulseStimulator::update(DefaultGUIModel::update_flags_t flag)
       flag_pulse = 0;
       status = 0;
       count = recovery / RT::System::getInstance()->getPeriod() * 1e-9;
+
+      calculateDuration();
       break;
 
     case UNPAUSE:

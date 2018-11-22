@@ -30,6 +30,7 @@ public:
   void execute(void);
   void createGUI(DefaultGUIModel::variable_t*, int);
   void customizeGUI(void);
+  void calculateDuration();
 
 protected:
   virtual void update(DefaultGUIModel::update_flags_t);
@@ -39,6 +40,7 @@ private:
   double count;
   double status;
   double time;
+  double duration;
 
   double t1_ini;
   double t2_ini;
