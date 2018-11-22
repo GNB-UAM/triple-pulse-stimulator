@@ -31,3 +31,4 @@ Grupo de Neurocomputación Biológica (GNB), Universidad Autónoma de Madrid
 
 #### States
 1. Status (Finished == 1) - When the trial ends, status is 1
+2. Trial duration (s) - Trial duration
